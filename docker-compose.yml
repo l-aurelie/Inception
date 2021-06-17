@@ -1,0 +1,20 @@
+version: '3'
+services:
+        nginx:
+                build: ./srcs/requirements/nginx
+                container_name: nginx
+                ports: 
+                        - "80:80"
+                networks:
+                        - frontend
+        wordpress:
+                build: ./srcs/requirements/wordpress
+                container_name: wordpress
+                ports:
+                        - "9000"
+                networks:
+                        - frontend
+
+networks:
+        frontend:
+        backend:
