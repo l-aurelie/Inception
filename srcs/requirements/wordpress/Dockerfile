@@ -8,7 +8,7 @@ RUN apk add php-fpm
 
 RUN mkdir /var/www
 
-RUN mv /srcs/index.php /var/www/index.php
+#RUN mv /srcs/index.php /var/www/index.php
 
 RUN sed -i 's/listen = 127\.0\.0\.1:9000/listen = 0\.0\.0\.0:9000/g' /etc/php7/php-fpm.d/www.conf
 
