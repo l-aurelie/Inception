@@ -12,12 +12,18 @@ services:
         wordpress:
                 build: ./requirements/wordpress
                 container_name: wordpress
-                ports:
-                        - "9000"
                 networks:
                         - frontend
+                        - backend
                 volumes:
                         - ./requirements/code:/var/www
+        mariadb:
+                build: ./requirements/mariadb
+                container_name: mariadb
+                networks:
+                        - backend
+                          #volumes:
+                          # - ./requirements/data:/var/lib/mysql
 networks:
         frontend:
         backend:
