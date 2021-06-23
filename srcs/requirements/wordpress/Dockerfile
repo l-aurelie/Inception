@@ -4,14 +4,18 @@ COPY . /srcs
 
 RUN apk update
 
-RUN apk add php-fpm
+RUN apk add php-fpm php7-json php7-mysqli
 
-RUN mkdir /var/www
+RUN mkdir -p /var/www
 
 RUN sed -i 's/listen = 127\.0\.0\.1:9000/listen = 0\.0\.0\.0:9000/g' /etc/php7/php-fpm.d/www.conf
 
-#RUN 
+RUN wget https://wordpress.org/latest.tar.gz
+RUN tar -xzvf latest.tar.gz
 
+#RUN mv wordpress /var/www/wordpress
+
+ENTRYPOINT ["sh", "/srcs/init-wp.sh"]
 
 CMD ["php-fpm7", "-F"]
 
