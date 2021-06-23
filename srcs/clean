@@ -1,0 +1,7 @@
+docker-compose down
+docker volume  rm srcs_database
+docker volume rm srcs_website
+sudo rm -rf ./srcs/requirements/data
+sudo rm -rf ./srcs/requirements/code
+mkdir -p ./srcs/requirements/data
+mkdir -p ./srcs/requirements/code
