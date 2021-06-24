@@ -17,7 +17,7 @@ RUN sed -i "s|.*skip-networking.*|skip-networking = false|g" /etc/my.cnf.d/maria
 RUN mysqld -umysql &\
     sleep 5 && \ 
     echo "CREATE DATABASE wp_db;" | mysql &&\
-    echo "CREATE USER 'username'@'%' IDENTIFIED BY 'userpasss';" | mysql &&\
+    echo "CREATE USER 'username'@'%' IDENTIFIED BY 'userpass';" | mysql &&\
     echo "GRANT ALL PRIVILEGES ON wp_db.* TO 'username'@'%';" | mysql &&\
     echo "FLUSH PRIVILEGES;" | mysql
 
