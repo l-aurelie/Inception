@@ -14,4 +14,4 @@ ENTRYPOINT ["sh", "/srcs/init-wp.sh"]
 
 CMD ["php-fpm7", "-F"]
 
-
+EXPOSE 9000
