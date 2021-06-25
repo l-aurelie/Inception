@@ -4,7 +4,7 @@ services:
                 build: ./requirements/nginx
                 container_name: nginx
                 ports: 
-                        - "80:80"
+                        - "443:443"
                 networks:
                         - frontend
                 volumes: 
@@ -13,6 +13,15 @@ services:
                      target: /var/www
         wordpress:
                 build: ./requirements/wordpress
+                environment:
+                        - WP_ADMIN=${WP_ADMIN}
+                        - WP_ADPASS=${WP_ADPASS}
+                        - WP_USER=${WP_USER}
+                        - WP_USPASS=${WP_USPASS}
+                        - DB_NAME=${DB_NAME}
+                        - DB_USER=${DB_USER}
+                        - DB_PASS=${DB_PASS}
+                        - ROOT_PASS=${ROOT_PASS}
                 container_name: wordpress
                 networks:
                         - frontend
@@ -23,7 +32,14 @@ services:
                           target: /var/www
 
         mariadb:
-                build: ./requirements/mariadb
+                build: 
+                        context: ./requirements/mariadb
+                        args:
+                                - DB_NAME=${DB_NAME}
+                                - DB_USER=${DB_USER}
+                                - DB_PASS=${DB_PASS}
+                                - ROOT_PASS=${ROOT_PASS}
+
                 container_name: mariadb
                 networks:
                         - backend

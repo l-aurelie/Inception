@@ -2,6 +2,11 @@ FROM alpine:3.12.7
 
 COPY . /srcs
 
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASS
+ARG ROOT_PASS
+
 RUN apk update
 
 RUN apk add mariadb mariadb-client
@@ -17,10 +22,10 @@ RUN sed -i "s|.*skip-networking.*|skip-networking = false|g" /etc/my.cnf.d/maria
 RUN mysqld -umysql &\
     sleep 5 && \ 
     echo "CREATE DATABASE wp_db;" | mysql &&\
-    echo "CREATE USER 'username'@'%' IDENTIFIED BY 'userpass';" | mysql &&\
+    echo "CREATE USER 'username'@'%' IDENTIFIED BY '$DB_PASS';" | mysql &&\
     echo "GRANT ALL PRIVILEGES ON wp_db.* TO 'username'@'%';" | mysql &&\
     echo "FLUSH PRIVILEGES;" | mysql
-
+#    echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('bgbg');" | mysql
 CMD ["mysqld", "--user=mysql"]
 
 
