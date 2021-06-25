@@ -3,8 +3,11 @@ services:
         nginx:
                 build: ./requirements/nginx
                 container_name: nginx
+                depends_on:
+                        - wordpress
                 ports: 
                         - "443:443"
+                restart: always
                 networks:
                         - frontend
                 volumes: 
@@ -23,6 +26,9 @@ services:
                         - DB_PASS=${DB_PASS}
                         - ROOT_PASS=${ROOT_PASS}
                 container_name: wordpress
+                depends_on:
+                        - mariadb
+                restart: always
                 networks:
                         - frontend
                         - backend
@@ -41,6 +47,7 @@ services:
                                 - ROOT_PASS=${ROOT_PASS}
 
                 container_name: mariadb
+                restart: always
                 networks:
                         - backend
                 volumes:
@@ -56,9 +63,9 @@ volumes:
                 driver_opts:
                       type: "none"
                       o: "bind"
-                      device: "/home/user42/Documents/inception2/srcs/requirements/code"
+                      device: "/home/aleconte/data/code"
         database:
                 driver_opts:
                       type: "none"
                       o: "bind"
-                      device: "/home/user42/Documents/inception2/srcs/requirements/data"
+                      device: "/home/aleconte/data/data"
